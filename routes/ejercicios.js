@@ -8,6 +8,21 @@ router.get('/', async (req, res) =>{
     res.json(ejercicios);
 });
 
+router.post('/', async (req, res)=>{
+    const result = await data.addEjercicio(req.body);
+    res.send(result);
+  });
+
+router.put('/:id', async (req, res)=>{
+  const result = await data.updateEjercicio(req.params.id, req.body);
+  res.send(result);
+});
+
+router.delete('/:id', async (req, res)=>{
+  const result = await data.deleteEjercicio(req.params.id);
+  res.send(result);
+});
+
 //CRUD: 
 
 //get /:id
