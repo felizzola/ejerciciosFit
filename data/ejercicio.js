@@ -1,11 +1,13 @@
 const connection = require('./connection');
 const ObjectId = require('mongodb').ObjectId; 
 
-async function getEjercicios(){
+async function getEjercicios(query){
     const clientmongo = await connection.getConnection();
+    const query_st = {...query.tipo && {"tipo": query.tipo},
+                      ...query.dificultad && {"dificultad": query.dificultad} }
     const ejercicios = await clientmongo.db('ejercicios_fit')
                         .collection('ejercicios')
-                        .find()
+                        .find(query_st)
                         .toArray();
     return ejercicios;                    
 }

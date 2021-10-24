@@ -3,7 +3,7 @@ const router = express.Router();
 const data = require('../data/ejercicio');
 
 router.get('/', async (req, res) =>{
-    let ejercicios = await data.getEjercicios();
+    let ejercicios = await data.getEjercicios(req.query);
 
     res.json(ejercicios);
 });
