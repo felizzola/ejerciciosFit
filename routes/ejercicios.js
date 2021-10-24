@@ -8,6 +8,13 @@ router.get('/', async (req, res) =>{
     res.json(ejercicios);
 });
 
+
+router.get('/:id', async (req, res) =>{
+    let ejercicios = await data.getEjercicio(req.params.id);
+
+    res.json(ejercicios);
+});
+
 //CRUD: 
 
 //get /:id

@@ -1,4 +1,5 @@
 const connection = require('./connection');
+const ObjectId = require('mongodb').ObjectId; 
 
 async function getEjercicios(){
     const clientmongo = await connection.getConnection();
@@ -9,4 +10,14 @@ async function getEjercicios(){
     return ejercicios;                    
 }
 
-module.exports = {getEjercicios};
+async function getEjercicio(id){
+    const clientmongo = await connection.getConnection();
+    const o_id = new ObjectId(id);
+    const ejercicio = await clientmongo.db('ejercicios_fit')
+                        .collection('ejercicios')
+                        .findOne({_id:o_id});
+    return ejercicio;                    
+}
+
+
+module.exports = {getEjercicios, getEjercicio};
