@@ -1,29 +1,29 @@
 const rutinas = require('../data/rutina');
 
-async function getrutinas() {
-    return rutinas.getAllrutinas();
+async function getRutinas() {
+    return rutinas.getAllRutinas();
 }
 
-async function getrutina(id) {
-    return rutinas.getrutina(id);
+async function getRutina(id) {
+    return rutinas.getRutina(id);
 }
 
-async function getrutinasPorUser() {
+async function getRutinasPorUser() {
     /*const query_st = {...dificultad && {"dificultad": dificultad} }*/
 
-    return rutinas.getrutinas(query_st);
+    return rutinas.getRutinas(query_st);
 }
 
-async function addrutina(rutina) {
-    return rutinas.addrutina(rutina);
+async function addRutina(rutina) {
+    return rutinas.addRutina(rutina);
 }
 
-async function updaterutina(id, rutina) {
-    return rutinas.updaterutina(id, rutina);
+async function updateRutina(id, rutina) {
+    return rutinas.updateRutina(id, rutina);
 }
 
-async function deleterutina(id) {
-    return rutinas.deleterutina(id);
+async function deleteRutina(id) {
+    return rutinas.deleteRutina(id);
 }
 
-module.exports = { getrutina, getrutinas, getrutinasPorUser, addrutina, deleterutina, updaterutina };
+module.exports = { getRutina, getRutinas, getRutinasPorUser, addRutina, deleteRutina, updateRutina };

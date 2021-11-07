@@ -2,15 +2,19 @@ const ejercicios = require('../data/user');
 
 
 async function addUser(user) {
-    return ejercicios.addEjercicio(ejercicio);
+    return ejercicios.addUser(user);
 }
 
-async function updateEjercicio(id, ejercicio) {
-    return ejercicios.updateEjercicio(id, ejercicio);
+async function updateUser(id, user) {
+    return ejercicios.updateUser(id, user);
 }
 
-async function deleteEjercicio(id) {
-    return ejercicios.deleteEjercicio(id);
+async function findByCredentials(email, password) {
+    return ejercicios.findByCredentials(email, password);
 }
 
-module.exports = { addUser, deleteEjercicio, updateEjercicio };
+async function generatedAuthToken(user) {
+    return ejercicios.generatedAuthToken(user);
+}
+
+module.exports = { addUser, findByCredentials, updateUser, generatedAuthToken };
