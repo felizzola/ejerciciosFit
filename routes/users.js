@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-const data = require('../data/user');
+const controller = require('../controller/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -13,14 +13,14 @@ router.get('/:id', function(req,res,next){
 
 router.post('/', async (req, res)=>{
   // TODO: Validar que sea correcto el objeto usuario
-  const result = await data.addUser(req.body);
+  const result = await controller.addUser(req.body);
   res.send(result);
 });
 
 router.post('/login', async(req, res)=>{
   try {
-    const user = await data.findByCredentials(req.body.email, req.body.password);
-    const token = await data.generatedAuthToken(user);
+    const user = await controller.findByCredentials(req.body.email, req.body.password);
+    const token = controller.generatedAuthToken(user);
 
     res.send({user, token});
 
