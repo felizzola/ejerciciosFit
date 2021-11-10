@@ -905,3 +905,13 @@ db.ejercicios.insertMany(
     }
 ]
 );
+
+/*     {
+        "tipo": "gluteos",
+        "nombre": "lunges",
+        "dificultad":"avanzado",
+        "musculos principales":["gluteo mayor","cuadriceps"],
+        "musculos secundarios": [],
+        "elementos": ["barra"],
+        "url":"https://www.youtube.com/channel/UCEoEbSv8UNtlKcV18Qz8_TQ"
+    }, */

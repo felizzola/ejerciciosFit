@@ -1,19 +1,30 @@
 const connection = require('./connection');
 const ObjectId = require('mongodb').ObjectId; 
-
 const DATABASE = 'ejercicios_fit';
 const COLLECTION_EJERCICIOS = 'ejercicios';
 
 async function getAllEjercicios(){
     const clientmongo = await connection.getConnection();
+    const ejercicios = await clientmongo.db(DATABASE)
+                        .collection(COLLECTION_EJERCICIOS)
+                        .find()
+                        .toArray();
+    return ejercicios;                    
+}
 
+async function getEjercicios(tipo, dificultad){
+    const clientmongo = await connection.getConnection();
+}
+async function getEjercicioPorTipo(tipo){
+    const clientmongo = await connection.getConnection();
+    const query_st = {...tipo && {"tipo": tipo}}
     const ejercicios = await clientmongo.db(DATABASE)
                         .collection(COLLECTION_EJERCICIOS)
                         .toArray();
     return ejercicios;                    
 }
 
-async function getEjercicios(query_st){
+async function getEjerciciosPorDificultad(dificultad){
     const clientmongo = await connection.getConnection();
 
     const ejercicios = await clientmongo.db(DATABASE)
@@ -31,7 +42,6 @@ async function getEjercicio(id){
                         .findOne({_id:o_id});
     return ejercicio;                    
 }
-
 
 async function addEjercicio(ejercicio){
     const connectiondb = await connection.getConnection();
@@ -59,4 +69,4 @@ async function deleteEjercicio(id){
     return result;
 }
 
-module.exports = {getEjercicios, getAllEjercicios, getEjercicio, addEjercicio, updateEjercicio, deleteEjercicio};
+module.exports = {getAllEjercicios, getEjercicios, getEjercicioPorTipo, getEjerciciosPorDificultad, getEjercicio, addEjercicio, updateEjercicio, deleteEjercicio};
