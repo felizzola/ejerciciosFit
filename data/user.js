@@ -6,6 +6,17 @@ const DATABASE = "ejercicios_fit";
 const COLLECTION_USERS = "users";
 const ObjectId = require("mongodb").ObjectId;
 
+//me tira bad auth : Authentication failed pero no es el .env
+async function getAllUsers(id) {
+  const clientmongo = await connection.getConnection();
+  const users = await clientmongo
+    .db(DATABASE)
+    .collection(COLLECTION_USERS)
+    .find()
+    .toArray();
+  return users;
+}
+
 async function getUser(id) {
   const clientmongo = await connection.getConnection();
   const o_id = new ObjectId(id);
@@ -109,6 +120,7 @@ module.exports = {
   generatedAuthToken,
   setFavorito,
   getUser,
+  getAllUsers,
   deleteUser,
   addAdmin
 };

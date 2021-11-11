@@ -2,12 +2,25 @@ var express = require('express');
 var router = express.Router();
 const data = require('../data/user');
 const jwt = require('jsonwebtoken');
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
+const controller = require('../controllers/user');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource'); 
+
+router.get('/', async function(req, res, next) {
+  
+  try {
+    res.json(await data.getAllUsers());
+  } catch (error) {
+    res.send({"error":error.message});
+  }
+  
 });
+
+//default response (before getAllUsers)
+// router.get('/', function(req, res, next) {
+//   res.send('respond with a resource'); 
+// });
 
 router.post('/login', async(req, res)=>{
   try {
