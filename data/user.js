@@ -19,9 +19,11 @@ async function getUser(id) {
 async function addUser(user) {
   const connectiondb = await connection.getConnection();
   user.favoritos = [];
-  user.plan = [];
+  user.plan = []; 
   user.activo = true;
-  /* user.rol = "usuario"; */
+  if(!user.rol){
+    user.rol = "usuario";
+  }
   user.password = await bcrypt.hash(user.password, 8);
   const result = connectiondb
     .db(DATABASE)
@@ -29,6 +31,12 @@ async function addUser(user) {
     .insertOne(user);
   return result;
 }
+
+async function addAdmin(user) {
+  user.rol = "administrador";
+  return addUser(user);
+}
+
 /* validar existencia de usuario y validar password que corresponda */
 async function findByCredentials(email, password) {
   const connectiondb = await connection.getConnection();
@@ -46,10 +54,9 @@ async function findByCredentials(email, password) {
   return user;
 }
 
-/* aca puedo enviar ROLES, etc */
 function generatedAuthToken(user) {
   const token = jwt.sign(
-    { _id: user._id, email: user.email},
+    { _id: user._id, email: user.email, rol: user.rol},
     process.env.CLAVE_SECRETA,
     { expiresIn: "1h" }
   );
@@ -61,9 +68,8 @@ async function deleteUser(id){
     const o_id = new ObjectId(id);
     const result = connectiondb.db(DATABASE)
             .collection(COLLECTION_USERS)
-            .deleteOne({_id:o_id});
-            /* .updateOne({_id:o_id},
-              { $set: { "activo": false } }); */
+            .updateOne({_id:o_id},
+              { $set: { "activo": false } });
     return result;
 }
 
@@ -103,5 +109,6 @@ module.exports = {
   generatedAuthToken,
   setFavorito,
   getUser,
-  deleteUser
+  deleteUser,
+  addAdmin
 };
